@@ -13,9 +13,9 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(cookieParser());
 app.use(Router);
+mongoose.set("strictQuery", false)
 mongoose
   .connect(dbURI)
-  .set("strictQuery", false)
   .then((result) => {
     app.listen(port);
     console.log("connected to mongodb and listening at port 5000");
