@@ -16,7 +16,7 @@ app.use(Router);
 mongoose.set("strictQuery", false);
 mongoose.connect(process.env.MONGO_URL, () => {
   console.log("Connected to MongoDB");
-});
+}).catch((err) => console.error(err));
 
 if (process.env.NODE_ENV == "production") {
   app.use(express.static("client/build"));
