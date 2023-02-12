@@ -13,10 +13,14 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(cookieParser());
 app.use(Router);
-mongoose.set("strictQuery", false);
-mongoose.connect(process.env.MONGO_URL, () => {
-  console.log("Connected to MongoDB");
-}).catch((err) => console.error(err));
+mongoose
+  .connect(dbURI)
+  .set("strictQuery", false)
+  .then((result) => {
+    app.listen(port);
+    console.log("connected to mongodb and listening at port 5000");
+  })
+  .catch((err) => console.error(err));
 
 if (process.env.NODE_ENV == "production") {
   app.use(express.static("client/build"));
